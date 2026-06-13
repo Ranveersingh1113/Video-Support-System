@@ -126,6 +126,11 @@ export function CallRoom(props: {
       connect
       video
       audio
+      // Force media through the server's TURN relay. Direct UDP wins ICE's priority
+      // race but silently fails on restrictive/CGNAT networks (inbound UDP dropped),
+      // causing a ~15s reconnect loop. Relaying via TURN/TLS is the path that always
+      // works; the LiveKit server injects its TURN server into the client ICE config.
+      options={{ rtcConfig: { iceTransportPolicy: 'relay' } }}
       data-lk-theme="default"
       style={{ height: '100vh' }}
       onDisconnected={onLeave}
