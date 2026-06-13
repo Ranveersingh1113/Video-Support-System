@@ -30,6 +30,8 @@ services:
       - ./infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # reach host-networked livekit
     depends_on:
       - app
 
@@ -59,6 +61,8 @@ services:
     volumes:
       - ./recordings:/app/recordings
       - ./uploads:/app/uploads
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # reach host-networked livekit
     depends_on:
       postgres:
         condition: service_healthy
@@ -67,8 +71,12 @@ services:
     image: livekit/livekit-server:v1.8
     restart: unless-stopped
     command: --config /etc/livekit.yaml
-    ports:
-      - "50000-50100:50000-50100/udp"   # WebRTC media — must be reachable from browsers
+    # Host networking: LiveKit binds 7880/7881 + the UDP media range directly on the
+    # host, bypassing Docker's userland UDP proxy. The proxy mangles WebRTC's address
+    # tuple and breaks media after the ICE handshake (reconnect loop). With host net
+    # there are no docker-proxy processes for the 101 media ports. Ports come from
+    # livekit-prod.yaml; the OS firewall must allow them (already configured).
+    network_mode: host
     volumes:
       - ./infra/livekit-prod.yaml:/etc/livekit.yaml:ro
     depends_on:
@@ -81,6 +89,8 @@ services:
       - SYS_ADMIN
     environment:
       EGRESS_CONFIG_FILE: /etc/egress.yaml
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # reach host-networked livekit
     volumes:
       - ./infra/livekit-egress/egress.prod.yaml:/etc/egress.yaml:ro
       - ./recordings:/app/recordings
@@ -107,6 +117,10 @@ services:
     image: redis:7-alpine
     restart: unless-stopped
     command: redis-server --appendonly yes
+    # Published on loopback so the host-networked livekit can reach it at 127.0.0.1:6379.
+    # Bridge services (egress) still reach it via the "redis" service name.
+    ports:
+      - "127.0.0.1:6379:6379"
     volumes:
       - redisdata:/data
     healthcheck:

@@ -4,14 +4,17 @@
 
 port: 7880
 
+# LiveKit runs with Docker host networking (see docker-compose.prod.yml), so it binds
+# these ports directly on the host. node_ip is the server's public IP.
 rtc:
   tcp_port: 7881
-  use_external_ip: true        # auto-detect public IP from cloud metadata
+  use_external_ip: false       # public IP is directly on the host NIC (set node_ip)
+  node_ip: YOUR_SERVER_PUBLIC_IP
   port_range_start: 50000
   port_range_end: 50100
 
 redis:
-  address: redis:6379          # internal Docker service name
+  address: 127.0.0.1:6379      # redis published on host loopback (compose)
 
 # API key and secret — must match LIVEKIT_API_KEY / LIVEKIT_API_SECRET in .env.production
 keys:

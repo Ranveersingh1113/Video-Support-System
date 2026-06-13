@@ -13,6 +13,7 @@
 }
 
 # LiveKit signaling — WebSocket upgrade is automatic with Caddy's reverse_proxy.
+# LiveKit runs on host networking, so reach it via the host gateway, not a service name.
 lk.{$PUBLIC_DOMAIN} {
-    reverse_proxy livekit:7880
+    reverse_proxy host.docker.internal:7880
 }

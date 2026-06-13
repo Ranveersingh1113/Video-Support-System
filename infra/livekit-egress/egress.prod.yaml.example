@@ -6,10 +6,10 @@
 # so it connects internally (ws://livekit:7880, no TLS needed inside the stack).
 
 log_level: info
-api_key: YOUR_API_KEY           # must match LIVEKIT_API_KEY
-api_secret: YOUR_API_SECRET     # must match LIVEKIT_API_SECRET
-ws_url: ws://livekit:7880       # internal Docker service name — no TLS
-insecure: true                  # internal connection, no cert needed
+api_key: YOUR_API_KEY                    # must match LIVEKIT_API_KEY
+api_secret: YOUR_API_SECRET              # must match LIVEKIT_API_SECRET
+ws_url: ws://host.docker.internal:7880   # livekit is host-networked (no TLS internally)
+insecure: true                           # internal connection, no cert needed
 
 redis:
   address: redis:6379
