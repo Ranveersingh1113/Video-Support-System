@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+  </style>
+</helmet>
+
+<div style="width: 1680px; min-height: 1240px; background: #0c0f14; font-family: 'IBM Plex Sans', sans-serif; color: #e6edf3; padding: 48px 56px 40px; background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.025) 1px, transparent 0); background-size: 28px 28px;">
+
+  <div style="display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 36px; border-bottom: 1px solid #1e2530; padding-bottom: 22px;">
+    <div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 3px; color: #5b6675; text-transform: uppercase; margin-bottom: 10px;">System Architecture</div>
+      <div style="font-size: 32px; font-weight: 700; letter-spacing: -0.5px;">Live Video Session Platform</div>
+      <div style="font-size: 15px; color: #8b98a9; margin-top: 6px;">Agent &amp; customer real-time video, chat, and recording &middot; LiveKit SFU + Fastify</div>
+    </div>
+    <div style="display: flex; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 12px;">
+      <div style="border: 1px solid #1e2530; border-radius: 6px; padding: 7px 12px; color: #8b98a9;">Node.js / TypeScript</div>
+      <div style="border: 1px solid #1e2530; border-radius: 6px; padding: 7px 12px; color: #8b98a9;">PostgreSQL 16</div>
+      <div style="border: 1px solid #1e2530; border-radius: 6px; padding: 7px 12px; color: #8b98a9;">LiveKit v1.8</div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 28px; align-items: stretch;">
+    <div style="width: 150px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 4px;">
+      <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #3b82f6;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #3b82f6; font-weight: 600;">CLIENT</span></div>
+      <div style="font-size: 12px; color: #5b6675; line-height: 1.5;">Browser SPAs over HTTPS / WSS</div>
+    </div>
+    <div style="flex: 1; display: flex; gap: 20px;">
+      <div style="flex: 1; background: #11161e; border: 1px solid #243049; border-top: 2px solid #3b82f6; border-radius: 10px; padding: 18px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="font-size: 18px;">🖥️</span><span style="font-size: 17px; font-weight: 600;">Agent Browser</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #8b98a9;">React SPA &middot; agent console</div>
+      </div>
+      <div style="flex: 1; background: #11161e; border: 1px solid #243049; border-top: 2px solid #3b82f6; border-radius: 10px; padding: 18px 20px;">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;"><span style="font-size: 18px;">👥</span><span style="font-size: 17px; font-weight: 600;">Customer Browser</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #8b98a9;">React SPA &middot; /join page</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex;"><div style="width: 150px; flex-shrink: 0;"></div><div style="flex: 1; display: flex; justify-content: center;"><div style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5b6675; margin-bottom: 4px;">HTTPS / WSS</div><div style="width: 1px; height: 16px; background: #2c3a4f;"></div><div style="color: #2c3a4f; font-size: 11px; line-height: 0;">▼</div></div></div></div>
+
+  <div style="display: flex; gap: 28px; align-items: stretch;">
+    <div style="width: 150px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 4px;">
+      <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #22c55e;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #22c55e; font-weight: 600;">EDGE</span></div>
+      <div style="font-size: 12px; color: #5b6675; line-height: 1.5;">Reverse proxy &amp; TLS</div>
+    </div>
+    <div style="flex: 1; display: flex; justify-content: center;">
+      <div style="width: 520px; background: #11161e; border: 1px solid #1f3a26; border-top: 2px solid #22c55e; border-radius: 10px; padding: 18px 24px; text-align: center;">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 6px;"><span style="font-size: 17px; font-weight: 600;">Caddy</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #22c55e; background: rgba(34,197,94,0.1); border-radius: 4px; padding: 2px 8px;">yourdomain.com</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: #8b98a9;">Auto-HTTPS &middot; TLS termination &middot; routes API + static SPA</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex;"><div style="width: 150px; flex-shrink: 0;"></div><div style="flex: 1; display: flex; justify-content: center; gap: 360px; padding: 6px 0;">
+    <div style="display: flex; flex-direction: column; align-items: center;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5b6675; margin-bottom: 4px;">HTTP :4000</div><div style="width: 1px; height: 16px; background: #2c3a4f;"></div><div style="color: #2c3a4f; font-size: 11px; line-height: 0;">▼</div></div>
+    <div style="display: flex; flex-direction: column; align-items: center;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5b6675; margin-bottom: 4px;">WSS lk.domain</div><div style="width: 1px; height: 16px; background: #2c3a4f;"></div><div style="color: #2c3a4f; font-size: 11px; line-height: 0;">▼</div></div>
+  </div></div>
+
+  <div style="display: flex; gap: 28px; align-items: stretch;">
+    <div style="width: 150px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 4px;">
+      <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #8b5cf6;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #8b5cf6; font-weight: 600;">APP</span></div>
+      <div style="font-size: 12px; color: #5b6675; line-height: 1.5;">API server &amp; routes</div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 16px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #ef4444;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #ef4444; font-weight: 600;">MEDIA</span></div>
+      <div style="font-size: 12px; color: #5b6675; line-height: 1.5;">LiveKit SFU &amp; recording</div>
+    </div>
+
+    <div style="flex: 1.55; background: #11161e; border: 1px solid #2c2440; border-top: 2px solid #8b5cf6; border-radius: 10px; padding: 18px 20px;">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+        <span style="font-size: 17px; font-weight: 600;">⚙️ Fastify API Server</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #8b5cf6; background: rgba(139,92,246,0.1); border-radius: 4px; padding: 2px 8px;">Port 4000</span>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px;">
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;"><div style="color: #7c89f0; font-weight: 600; margin-bottom: 6px; font-size: 11px;">AUTH</div><div style="color: #9aa6b6; line-height: 1.7;">POST /auth/login<br>GET&nbsp;&nbsp;/auth/me</div></div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;"><div style="color: #7c89f0; font-weight: 600; margin-bottom: 6px; font-size: 11px;">SESSIONS</div><div style="color: #9aa6b6; line-height: 1.7;">POST /sessions<br>GET&nbsp;&nbsp;/sessions/:id<br>POST /sessions/:id/end</div></div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;"><div style="color: #7c89f0; font-weight: 600; margin-bottom: 6px; font-size: 11px;">INVITES / JOIN</div><div style="color: #9aa6b6; line-height: 1.7;">POST /sessions/:id/invites<br>GET&nbsp;&nbsp;/join/:token<br>POST /join/:token</div></div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;"><div style="color: #7c89f0; font-weight: 600; margin-bottom: 6px; font-size: 11px;">CHAT / FILES</div><div style="color: #9aa6b6; line-height: 1.7;">POST /sessions/:id/messages<br>POST /sessions/:id/files<br>GET&nbsp;&nbsp;/sessions/:id/files/:id</div></div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;"><div style="color: #7c89f0; font-weight: 600; margin-bottom: 6px; font-size: 11px;">RECORDINGS</div><div style="color: #9aa6b6; line-height: 1.7;">POST /sessions/:id/recordings/start<br>POST /recordings/:id/stop<br>GET&nbsp;&nbsp;/recordings/:id/download</div></div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;"><div style="color: #7c89f0; font-weight: 600; margin-bottom: 6px; font-size: 11px;">ADMIN / WEBHOOK</div><div style="color: #9aa6b6; line-height: 1.7;">GET&nbsp;&nbsp;/admin/sessions/live<br>GET&nbsp;&nbsp;/metrics<br>POST /api/webhooks/livekit</div></div>
+      </div>
+    </div>
+
+    <div style="flex: 1; background: #11161e; border: 1px solid #3a2424; border-top: 2px solid #ef4444; border-radius: 10px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;"><span style="font-size: 16px; font-weight: 600;">📡 LiveKit Server</span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #ef4444;">v1.8</span></div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #9aa6b6; line-height: 1.7;">:7880 WS signaling<br>:50000-50100 UDP &middot; RTP media</div>
+      </div>
+      <div style="height: 1px; background: #251a1a;"></div>
+      <div>
+        <div style="font-size: 16px; font-weight: 600; margin-bottom: 6px;">🎥 LiveKit Egress</div>
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: #9aa6b6; line-height: 1.7;">RoomComposite recording<br>Headless Chrome + GStreamer</div>
+      </div>
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #d98080; background: rgba(239,68,68,0.08); border-radius: 6px; padding: 8px 10px; line-height: 1.6;">⇄ egressClient: start/stop<br>→ MP4 output to recordings/</div>
+    </div>
+  </div>
+
+  <div style="display: flex;"><div style="width: 150px; flex-shrink: 0;"></div><div style="flex: 1; display: flex; justify-content: center; gap: 200px; padding: 6px 0;">
+    <div style="display: flex; flex-direction: column; align-items: center;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5b6675; margin-bottom: 4px;">Prisma ORM &middot; fs streams</div><div style="width: 1px; height: 16px; background: #2c3a4f;"></div><div style="color: #2c3a4f; font-size: 11px; line-height: 0;">▼</div></div>
+    <div style="display: flex; flex-direction: column; align-items: center;"><div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #5b6675; margin-bottom: 4px;">Room state &middot; pub-sub</div><div style="width: 1px; height: 16px; background: #2c3a4f;"></div><div style="color: #2c3a4f; font-size: 11px; line-height: 0;">▼</div></div>
+  </div></div>
+
+  <div style="display: flex; gap: 28px; align-items: stretch;">
+    <div style="width: 150px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; padding-top: 4px;">
+      <div style="display: flex; align-items: center; gap: 8px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #06b6d4;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #06b6d4; font-weight: 600;">DATA</span></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #f59e0b;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #f59e0b; font-weight: 600;">STORAGE</span></div>
+      <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px;"><span style="width: 9px; height: 9px; border-radius: 50%; background: #10b981;"></span><span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #10b981; font-weight: 600;">AUTH</span></div>
+    </div>
+
+    <div style="flex: 1; display: flex; gap: 20px; align-items: stretch;">
+      <div style="flex: 1; background: #11161e; border: 1px solid #16363f; border-top: 2px solid #06b6d4; border-radius: 10px; padding: 18px 20px;">
+        <div style="font-size: 16px; font-weight: 600; margin-bottom: 14px;">🗄️ Data Layer</div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 12px; margin-bottom: 10px;">
+          <div style="font-weight: 600; font-size: 14px; margin-bottom: 5px; color: #4fc3da;">PostgreSQL 16</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; line-height: 1.7;">Sessions · Users · Messages<br>Participants · Invites · Recordings</div>
+        </div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 12px;">
+          <div style="font-weight: 600; font-size: 14px; margin-bottom: 5px; color: #4fc3da;">Redis 7</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; line-height: 1.7;">LiveKit room state<br>Egress coordination</div>
+        </div>
+      </div>
+
+      <div style="flex: 1; background: #11161e; border: 1px solid #3a341c; border-top: 2px solid #f59e0b; border-radius: 10px; padding: 18px 20px;">
+        <div style="font-size: 16px; font-weight: 600; margin-bottom: 14px;">📁 File Storage</div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 12px; margin-bottom: 10px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; margin-bottom: 5px; color: #e0b057;">uploads/</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; line-height: 1.7;">Chat file attachments<br>Max 5MB per file</div>
+        </div>
+        <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 12px;">
+          <div style="font-family: 'IBM Plex Mono', monospace; font-weight: 600; font-size: 13px; margin-bottom: 5px; color: #e0b057;">recordings/</div>
+          <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; line-height: 1.7;">MP4 recording files<br>Egress output</div>
+        </div>
+      </div>
+
+      <div style="flex: 1; background: #11161e; border: 1px solid #163a2a; border-top: 2px solid #10b981; border-radius: 10px; padding: 18px 20px;">
+        <div style="font-size: 16px; font-weight: 600; margin-bottom: 14px;">🔐 Auth &amp; Token Flow</div>
+        <div style="display: flex; flex-direction: column; gap: 9px;">
+          <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;">
+            <div style="font-weight: 600; font-size: 13.5px; color: #34d399;">Agent JWT</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; margin-top: 4px;">7d expiry · kind=agent → Agent</div>
+          </div>
+          <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;">
+            <div style="font-weight: 600; font-size: 13.5px; color: #34d399;">Participant JWT</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; margin-top: 4px;">12h expiry · kind=participant → Both</div>
+          </div>
+          <div style="background: #0e1219; border: 1px solid #1c2230; border-radius: 7px; padding: 11px 12px;">
+            <div style="font-weight: 600; font-size: 13.5px; color: #34d399;">LiveKit Access Token</div>
+            <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #9aa6b6; margin-top: 4px;">Signed · role-scoped → Room join</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; gap: 28px; margin-top: 30px; padding-top: 22px; border-top: 1px solid #1e2530;">
+    <div style="width: 150px; flex-shrink: 0; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 2px; color: #5b6675; font-weight: 600;">FLOWS</div>
+    <div style="flex: 1; display: flex; gap: 40px; flex-wrap: wrap; font-size: 13px; color: #8b98a9;">
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 28px; height: 0; border-top: 2px dashed #ef4444;"></span><span>Direct <strong style="color:#d98080; font-weight:600;">RTP/SRTP UDP media</strong> — browsers ⇄ LiveKit, bypasses Caddy</span></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 28px; height: 0; border-top: 2px solid #4a4a6a;"></span><span>Signed <strong style="color:#9aa6b6; font-weight:600;">webhook events</strong> — LiveKit → <span style="font-family:'IBM Plex Mono',monospace; font-size:12px;">POST /api/webhooks/livekit</span></span></div>
+      <div style="display: flex; align-items: center; gap: 10px;"><span style="width: 28px; height: 0; border-top: 2px solid #2c3a4f;"></span><span>participant_joined/left · egress_started/ended · room_finished</span></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1680, &quot;height&quot;: 1260}}"></script>
+</body>
+</html>
