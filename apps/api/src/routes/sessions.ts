@@ -6,7 +6,7 @@ import { mkdir, writeFile } from 'node:fs/promises'
 import { join, resolve } from 'node:path'
 import { prisma } from '../lib/prisma.js'
 import { requireAgent, requireParticipant, getBearer } from '../lib/guards.js'
-import { mintAccessToken, roomService, LIVEKIT_URL } from '../lib/livekit.js'
+import { mintAccessToken, roomService, LIVEKIT_PUBLIC_URL } from '../lib/livekit.js'
 import { stopActiveRecordings } from '../lib/recordings.js'
 import {
   signParticipantToken,
@@ -96,7 +96,7 @@ export async function sessionRoutes(app: FastifyInstance) {
     const identity = 'agent_' + req.agent!.sub.slice(0, 8)
     const name = user?.displayName ?? 'Agent'
     return {
-      url: LIVEKIT_URL,
+      url: LIVEKIT_PUBLIC_URL,
       token: await mintAccessToken({ identity, name, room: session.roomName, role: 'agent' }),
       participantToken: signParticipantToken({ sessionId: session.id, identity, name, role: 'agent' }),
       identity,

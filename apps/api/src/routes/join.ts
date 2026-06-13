@@ -3,7 +3,7 @@ import type { Invite, Session } from '@prisma/client'
 import { z } from 'zod'
 import { randomBytes } from 'node:crypto'
 import { prisma } from '../lib/prisma.js'
-import { mintAccessToken, LIVEKIT_URL } from '../lib/livekit.js'
+import { mintAccessToken, LIVEKIT_PUBLIC_URL } from '../lib/livekit.js'
 import { signParticipantToken } from '../lib/auth.js'
 
 type InviteLoadResult =
@@ -39,7 +39,7 @@ export async function joinRoutes(app: FastifyInstance) {
     const identity = 'cust_' + randomBytes(5).toString('hex')
     const name = parsed.data.name
     return {
-      url: LIVEKIT_URL,
+      url: LIVEKIT_PUBLIC_URL,
       token: await mintAccessToken({ identity, name, room: session.roomName, role: 'customer' }),
       participantToken: signParticipantToken({ sessionId: session.id, identity, name, role: 'customer' }),
       identity,

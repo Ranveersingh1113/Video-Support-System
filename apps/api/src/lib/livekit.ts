@@ -9,7 +9,11 @@ import {
 
 const API_KEY = process.env.LIVEKIT_API_KEY ?? 'devkey'
 const API_SECRET = process.env.LIVEKIT_API_SECRET ?? 'devsecretdevsecretdevsecretdevsecret'
+// Internal address: how THIS server reaches LiveKit (Docker service name in prod).
 export const LIVEKIT_URL = process.env.LIVEKIT_URL ?? 'ws://localhost:7880'
+// Public address: what the BROWSER connects to for signaling. In prod this is the
+// external WSS URL (e.g. wss://lk.<domain>); in local dev it's the same as LIVEKIT_URL.
+export const LIVEKIT_PUBLIC_URL = process.env.LIVEKIT_PUBLIC_URL ?? LIVEKIT_URL
 // RoomServiceClient + webhooks talk to LiveKit's HTTP API (same host, http scheme).
 const LIVEKIT_HTTP = LIVEKIT_URL.replace(/^ws/, 'http')
 
