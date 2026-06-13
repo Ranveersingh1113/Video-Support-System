@@ -1,0 +1,28 @@
+# Production LiveKit config.
+# Copy to livekit-prod.yaml and fill in your real values.
+# livekit-prod.yaml is gitignored (it holds API credentials).
+
+port: 7880
+
+rtc:
+  tcp_port: 7881
+  use_external_ip: true        # auto-detect public IP from cloud metadata
+  port_range_start: 50000
+  port_range_end: 50100
+
+redis:
+  address: redis:6379          # internal Docker service name
+
+# API key and secret — must match LIVEKIT_API_KEY / LIVEKIT_API_SECRET in .env.production
+keys:
+  YOUR_API_KEY: YOUR_API_SECRET_MIN_32_CHARS
+
+# Webhook: LiveKit posts signed events to your API for authoritative session history.
+webhook:
+  api_key: YOUR_API_KEY
+  urls:
+    - https://YOUR_DOMAIN/api/webhooks/livekit
+
+logging:
+  level: info
+  json: true

@@ -15,3 +15,7 @@ uploads/
 chat_context.md
 infra/livekit-native/*.exe
 infra/livekit-native/*.zip
+# Production secrets (filled from *.example templates — never commit)
+.env.production
+infra/livekit-prod.yaml
+infra/livekit-egress/egress.prod.yaml

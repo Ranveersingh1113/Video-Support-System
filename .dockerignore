@@ -6,5 +6,9 @@ node_modules
 .env
 .env.*
 recordings
+uploads
 *.log
 .claude
+chat_context.md
+infra/livekit-native/*.exe
+infra/livekit-native/*.zip

@@ -10,7 +10,7 @@ import type { AgentClaims } from '../lib/auth.js'
 
 type AgentReq = FastifyRequest & { agent?: AgentClaims }
 
-const RECORDING_DIR = resolve(process.cwd(), '../../recordings')
+const RECORDING_DIR = process.env.RECORDING_DIR ?? resolve(process.cwd(), '../../recordings')
 const EGRESS_RECORDING_DIR = process.env.EGRESS_RECORDING_DIR ?? RECORDING_DIR
 const EGRESS_REQUEST_TIMEOUT_MS = Number(process.env.EGRESS_REQUEST_TIMEOUT_MS ?? 8000)
 

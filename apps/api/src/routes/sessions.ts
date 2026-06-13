@@ -18,7 +18,7 @@ import {
 const INVITE_TTL_MIN = Number(process.env.INVITE_TTL_MINUTES ?? 120)
 const PUBLIC_WEB_URL = process.env.PUBLIC_WEB_URL ?? ''
 const MAX_UPLOAD_BYTES = Number(process.env.MAX_UPLOAD_BYTES ?? 5 * 1024 * 1024)
-const UPLOAD_DIR = resolve(process.cwd(), '../../uploads')
+const UPLOAD_DIR = process.env.UPLOAD_DIR ?? resolve(process.cwd(), '../../uploads')
 
 type AgentReq = FastifyRequest & { agent?: AgentClaims }
 type PartReq = FastifyRequest & { participant?: ParticipantClaims }
