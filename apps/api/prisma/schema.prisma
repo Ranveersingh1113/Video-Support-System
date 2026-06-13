@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Support agents — the only accounts. Customers are anonymous, join via invite token.
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  displayName  String
+  createdAt    DateTime  @default(now())
+  sessions     Session[]
+}
+
+enum SessionStatus {
+  ACTIVE
+  ENDED
+}
+
+// A support call session. roomName is the LiveKit room.
+model Session {
+  id           String        @id @default(cuid())
+  title        String
+  roomName     String        @unique
+  status       SessionStatus @default(ACTIVE)
+  agent        User          @relation(fields: [agentId], references: [id])
+  agentId      String
+  createdAt    DateTime      @default(now())
+  endedAt      DateTime?
+  invites      Invite[]
+  participants Participant[]
+  messages     ChatMessage[]
+  recordings   Recording[]
+
+  @@index([agentId])
+}
+
+enum RecordingStatus {
+  RECORDING
+  PROCESSING
+  READY
+  FAILED
+}
+
+model Recording {
+  id          String          @id @default(cuid())
+  session     Session         @relation(fields: [sessionId], references: [id])
+  sessionId   String
+  egressId    String?         @unique
+  status      RecordingStatus @default(RECORDING)
+  fileName    String
+  filePath    String?
+  startedAt   DateTime        @default(now())
+  stoppedAt   DateTime?
+  readyAt     DateTime?
+  error       String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@index([sessionId])
+}
+
+// Shareable customer invite — one valid token grants a join.
+model Invite {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  session   Session  @relation(fields: [sessionId], references: [id])
+  sessionId String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+enum Role {
+  AGENT
+  CUSTOMER
+}
+
+// Join/leave tracking for session history (who, when, how long). Written by LiveKit webhooks.
+model Participant {
+  id          String    @id @default(cuid())
+  session     Session   @relation(fields: [sessionId], references: [id])
+  sessionId   String
+  identity    String
+  displayName String
+  role        Role
+  joinedAt    DateTime  @default(now())
+  leftAt      DateTime?
+
+  @@index([sessionId])
+}
+
+// Persisted chat for the session record (retrievable after the call ends).
+model ChatMessage {
+  id             String   @id @default(cuid())
+  session        Session  @relation(fields: [sessionId], references: [id])
+  sessionId      String
+  senderIdentity String
+  senderName     String
+  body           String
+  fileName       String?
+  fileMime       String?
+  fileSize       Int?
+  fileStorageKey String?
+  createdAt      DateTime @default(now())
+
+  @@index([sessionId])
+}

@@ -1,0 +1,24 @@
+app = "vsp-livekit-bom"
+primary_region = "bom"
+
+[build]
+  dockerfile = "Dockerfile"
+
+# Signaling: wss on 443 -> LiveKit ws on 7880 (Fly terminates TLS).
+[[services]]
+  internal_port = 7880
+  protocol = "tcp"
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+# Media: raw TCP ICE on port 80 (universally-open outbound port).
+[[services]]
+  internal_port = 80
+  protocol = "tcp"
+  [[services.ports]]
+    port = 80
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "1gb"

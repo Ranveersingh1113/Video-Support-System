@@ -1,0 +1,30 @@
+{
+  "name": "video-support-platform",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AtomQuest finale — self-hosted real-time video support platform (LiveKit SFU)",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "infra:up": "docker --context desktop-linux compose -f infra/docker-compose.yml up -d postgres redis egress",
+    "infra:down": "docker --context desktop-linux compose -f infra/docker-compose.yml down",
+    "infra:logs": "docker --context desktop-linux compose -f infra/docker-compose.yml logs -f",
+    "infra:status": "docker --context desktop-linux compose -f infra/docker-compose.yml ps",
+    "infra:egress:logs": "docker --context desktop-linux compose -f infra/docker-compose.yml logs -f egress",
+    "local:start": "powershell -ExecutionPolicy Bypass -File infra/start-local.ps1",
+    "local:stop": "powershell -ExecutionPolicy Bypass -File infra/stop-local.ps1",
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "dev": "concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:all": "npm run local:start && npm run dev",
+    "smoke": "npm run smoke --workspace=apps/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
