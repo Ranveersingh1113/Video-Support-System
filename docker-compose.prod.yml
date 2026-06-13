@@ -79,6 +79,7 @@ services:
     network_mode: host
     volumes:
       - ./infra/livekit-prod.yaml:/etc/livekit.yaml:ro
+      - ./infra/certs:/etc/livekit-certs:ro   # TLS cert for the embedded TURN server
     depends_on:
       - redis
 

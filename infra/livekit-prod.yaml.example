@@ -5,16 +5,34 @@
 port: 7880
 
 # LiveKit runs with Docker host networking (see docker-compose.prod.yml), so it binds
-# these ports directly on the host. node_ip is the server's public IP.
+# these ports directly on the host. On a multi-interface host (cloud VMs have docker
+# bridges + private NICs alongside the public one), restrict ICE to the public IP only
+# via ips.includes — otherwise LiveKit scatters media ports across every interface and
+# sessions that land on a private NIC are unreachable from the browser.
 rtc:
   tcp_port: 7881
   use_external_ip: false       # public IP is directly on the host NIC (set node_ip)
   node_ip: YOUR_SERVER_PUBLIC_IP
+  ips:
+    includes:
+      - YOUR_SERVER_PUBLIC_IP/32
   port_range_start: 50000
   port_range_end: 50100
 
 redis:
   address: 127.0.0.1:6379      # redis published on host loopback (compose)
+
+# Embedded TURN relay. Required so customers on restrictive networks (CGNAT, mobile,
+# corporate firewalls that drop inbound UDP) can still connect — ICE falls back to
+# relaying media through the server over TURN/TLS. Reuses the Caddy-issued cert for the
+# lk subdomain (mounted at /etc/livekit-certs). Open TCP 5349 + UDP 3478 in the firewall.
+turn:
+  enabled: true
+  domain: lk.YOUR_SERVER_PUBLIC_IP.sslip.io
+  tls_port: 5349
+  udp_port: 3478
+  cert_file: /etc/livekit-certs/tls.crt
+  key_file: /etc/livekit-certs/tls.key
 
 # API key and secret — must match LIVEKIT_API_KEY / LIVEKIT_API_SECRET in .env.production
 keys:
