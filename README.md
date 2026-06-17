@@ -2,19 +2,23 @@
 
 Self-hosted LiveKit video support app for AtomQuest: agent creates a session, customer joins by invite, both use server-routed audio/video, chat, file sharing, history, admin dashboard, metrics, and recording controls.
 
-## Local Demo
+> **Note:** The deployment and infrastructure config (Fly.io, Oracle Cloud, the
+> `infra/` directory, and the production Docker stack) has been removed. The
+> application source under `apps/` remains, but you'll need to provision your own
+> LiveKit SFU, PostgreSQL, and Redis (plus a LiveKit Egress worker for recording)
+> and point the app at them via environment variables before it will run. See
+> `.env.example` for the required values.
+
+## Development
 
 Requirements:
 - Node.js 20+
-- Docker Desktop
-- Chrome/Edge for browser testing
+- A reachable LiveKit server, PostgreSQL, and Redis (configure via `.env`)
 
-Start infra and app:
-
-```powershell
-npm.cmd install
-npm.cmd run local:start
-npm.cmd run dev
+```bash
+npm install
+cp .env.example .env   # then fill in real values
+npm run dev
 ```
 
 Open:
@@ -28,28 +32,15 @@ Demo login:
 agent@demo.com / demo1234
 ```
 
-For LAN testing, use the host IP configured in `.env` and `infra/livekit-native/livekit.yaml` (currently `192.168.1.2`). Customer laptop opens the copied invite link.
-
-## Recording
-
-Recording uses LiveKit Egress:
-- Redis and `livekit/egress` run from `infra/docker-compose.yml`.
-- Native Windows LiveKit runs from `infra/livekit-native/livekit-server.exe`.
-- Egress writes MP4s into `recordings/` through the `/out/recordings` container mount.
-
-If Docker/Egress is not running, Start recording fails safely with `FAILED` status instead of breaking the call.
-
 ## Useful Commands
 
-```powershell
-npm.cmd run local:start
-npm.cmd run local:stop
-npm.cmd run infra:status
-npm.cmd run infra:egress:logs
-npm.cmd run dev
-npm.cmd run build --workspace=apps/api
-npm.cmd run build --workspace=apps/web
-cd apps/api; npx.cmd tsx scripts\smoke.ts
+```bash
+npm run dev                              # run api + web together
+npm run dev:api                          # api only
+npm run dev:web                          # web only
+npm run build --workspace=apps/api
+npm run build --workspace=apps/web
+npm run smoke                            # api smoke test
 ```
 
 ## Implemented
